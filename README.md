@@ -1,109 +1,116 @@
-# CopilotKit <> LangGraph Starter
+# Pac-Chat: AI-Powered Pac-Man Quest Manager
 
-This is a starter template for building AI agents using [LangGraph](https://www.langchain.com/langgraph) and [CopilotKit](https://copilotkit.ai). It provides a modern Next.js application with an integrated LangGraph agent to be built on top of.
+A retro arcade-themed AI agent app built with [CopilotKit](https://copilotkit.ai). Chat with a Pac-Man-styled AI assistant that manages quests, schedules meetings, queries data, and renders live charts — all through a shared state model where the agent and user both drive the UI.
 
 https://github.com/user-attachments/assets/47761912-d46a-4fb3-b9bd-cb41ddd02e34
 
-## Prerequisites
+## What It Does
 
-- Node.js 18+ 
-- Python 3.8+
-- Any of the following package managers:
-  - [pnpm](https://pnpm.io/installation) (recommended)
-  - npm
-  - [yarn](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable)
-  - [bun](https://bun.sh/)
-- OpenAI API Key (for the LangGraph agent)
+This isn't a typical chatbot wrapper. The AI agent has direct access to application state — it can add quests, mark them complete, pull up charts, and schedule meetings. You can do the same from the UI. Both sides stay in sync automatically through CopilotKit's v2 agent state pattern.
 
-> **Note:** This repository ignores lock files (package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb) to avoid conflicts between different package managers. Each developer should generate their own lock file using their preferred package manager. After that, make sure to delete it from the .gitignore.
+**Three modes, one interface:**
+
+- **Chat** — Talk to the agent. It responds with Pac-Man flair (ghost avatars, arcade styling) and can take actions on your behalf.
+- **Quests** — A two-column kanban (Active / Cleared) where you or the agent manage tasks. Add, edit, delete, toggle status.
+- **Calendar** — Schedule meetings with a human-in-the-loop confirmation flow. The agent proposes a time, you approve or reject it.
+
+Plus generative UI: the agent can render pie charts, bar charts, and forms directly in the chat.
+
+## Architecture
+
+```
+apps/app/
+└── src/
+    ├── app/
+    │   ├── page.tsx                 Main page (PacManLayout + providers)
+    │   ├── layout.tsx               Root layout with CopilotKit wrapper
+    │   └── api/
+    │       ├── copilotkit/          CopilotKit runtime (OpenAI adapter + BuiltInAgent)
+    │       └── search/              Tavily web search integration
+    ├── components/
+    │   ├── pacman/                  Pac-Man themed UI
+    │   │   ├── layout.tsx           Three-panel layout (chat / quests / calendar)
+    │   │   ├── headless-chat.tsx    Chat with Pac-Man & Ghost avatars
+    │   │   ├── todo-list.tsx        Quest kanban
+    │   │   ├── calendar/            Meeting scheduler
+    │   │   └── quest-store.tsx      Frontend tools + agent context
+    │   └── generative-ui/           Charts and dynamic forms
+    └── hooks/
+        └── use-generative-ui-examples.tsx   CopilotKit v2 tools & components
+```
+
+**How state flows:** CopilotKit's `BuiltInAgent` manages the agent runtime. The frontend reads state via `useAgent()` and writes back via `agent.setState()`. Frontend tools (registered with `useFrontendTool`) let the agent switch UI modes, update quests, and trigger actions — no separate backend needed.
 
 ## Getting Started
 
-1. Install dependencies using your preferred package manager:
+### Prerequisites
+
+- Node.js 18+
+- [pnpm](https://pnpm.io/installation)
+- An [OpenAI API key](https://platform.openai.com/api-keys)
+
+### Setup
+
 ```bash
-# Using pnpm (recommended)
+git clone https://github.com/NathanTarbert/pac-chat-ai-powered-pacman.git
+cd pac-chat-ai-powered-pacman
 pnpm install
 
-# Using npm
-npm install
-
-# Using yarn
-yarn install
-
-# Using bun
-bun install
-```
-
-
-2. Set up your environment variables:
-```bash
 cp .env.example .env
+# Add your OpenAI API key to .env
 ```
 
-Then edit the `.env` file and add your OpenAI API key:
+### Run
 
 ```bash
-OPENAI_API_KEY=your-openai-api-key-here
-```
-
-3. Start the development server:
-```bash
-# Using pnpm
 pnpm dev
-
-# Using npm
-npm run dev
-
-# Using yarn
-yarn dev
-
-# Using bun
-bun run dev
 ```
 
-This will start both the UI and agent servers concurrently.
+The Next.js app starts on [localhost:3000](http://localhost:3000).
+
+## Tech Stack
+
+| Layer     | Tech                                         |
+|-----------|----------------------------------------------|
+| Frontend  | Next.js 16, React 19, TailwindCSS 4          |
+| AI Agent  | CopilotKit v2 (BuiltInAgent + OpenAI)        |
+| Search    | Tavily API                                    |
+| Charts    | Recharts                                      |
+| Monorepo  | Turborepo + pnpm workspaces                   |
+
+## Key Patterns
+
+**Agent-driven UI** — State lives in the agent. The frontend is a view layer that reads from and writes to agent state. One source of truth, bidirectional sync, and the agent always knows what's on screen.
+
+**Human-in-the-loop** — For actions like scheduling meetings, the agent proposes and waits. The user confirms or cancels through a form rendered in the UI. Agent execution blocks until the human responds.
+
+**Frontend tools** — CopilotKit lets you register tools on the frontend (like `manage_quests` or `enableAppMode`) that the agent can call. The agent can switch UI modes, update quest lists, or trigger navigation without any backend round-trip for the UI change.
 
 ## Available Scripts
-The following scripts can also be run using your preferred package manager:
-- `dev` - Starts both UI and agent servers in development mode
-- `dev:debug` - Starts development servers with debug logging enabled
-- `dev:ui` - Starts only the Next.js UI server
-- `dev:agent` - Starts only the LangGraph agent server
-- `build` - Builds the Next.js application for production
-- `start` - Starts the production server
-- `lint` - Runs ESLint for code linting
-- `install:agent` - Installs Python dependencies for the agent
 
-## Documentation
+| Command       | Description                |
+|---------------|----------------------------|
+| `pnpm dev`    | Start the dev server       |
+| `pnpm build`  | Production build           |
+| `pnpm lint`   | Run ESLint                 |
+| `pnpm clean`  | Remove build artifacts     |
 
-The main UI component is in `src/app/page.tsx`. You can:
-- Modify the theme colors and styling
-- Add new frontend actions
-- Customize the CopilotKit sidebar appearance
+## Extending This
 
-## 📚 Documentation
+The project is structured as a template. Fork it and swap out the quest/todo domain for whatever fits your use case:
 
-- [LangGraph Documentation](https://langchain-ai.github.io/langgraph/) - Learn more about LangGraph and its features
-- [CopilotKit Documentation](https://docs.copilotkit.ai) - Explore CopilotKit's capabilities
+1. Register frontend tools with `useFrontendTool` for agent-callable UI actions
+2. Use `useAgentContext` to expose state the agent should reason about
+3. Wire up components that read from `agent.state` and write via `agent.setState()`
 
-## Contributing
-
-Feel free to submit issues and enhancement requests! This starter is designed to be easily extensible.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+The Pac-Man theme is fun but optional — the underlying CopilotKit patterns work with any UI.
 
 ## Troubleshooting
 
-### Agent Connection Issues
-If you see "I'm having trouble connecting to my tools", make sure:
-1. The LangGraph agent is running on port 8000
-2. Your OpenAI API key is set correctly
-3. Both servers started successfully
+**"I'm having trouble connecting to my tools"**
+- Verify your OpenAI API key is set in `.env`
+- Check the dev server started successfully
 
-### Python Dependencies
-If you encounter Python import errors:
-```bash
-npm install:agent
-```
+## License
+
+MIT — see [LICENSE](./LICENSE) for details.
