@@ -22,6 +22,10 @@ agent = create_agent(
         Be brief in your explanations of CopilotKit and LangGraph, 1 to 2 sentences.
 
         When demonstrating charts, always call the query_data tool to fetch all data from the database first.
+
+        IMPORTANT: When the user wants to schedule a meeting, event, or appointment, you MUST call the scheduleTime tool immediately. Do NOT ask for details - the tool will show a form for the user to fill in. Just call scheduleTime with a brief reason and a suggested duration (default 30 minutes).
+
+        When the user wants to manage tasks/quests/todos, use enableAppMode first, then manage_todos.
     """,
 )
 

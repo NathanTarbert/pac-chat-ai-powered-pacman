@@ -1,24 +1,35 @@
 "use client";
 
-import { ExampleLayout } from "@/components/example-layout";
-import { ExampleCanvas } from "@/components/example-canvas";
+import { PacManLayout } from "@/components/pacman/layout";
+import { PacManCanvas } from "@/components/pacman/pacman-canvas";
+import { PacManChat } from "@/components/pacman/headless-chat";
+import { GoogleCalendar } from "@/components/pacman/calendar";
+import { CalendarProvider } from "@/components/pacman/calendar/calendar-store";
+import { HITLProvider } from "@/components/pacman/hitl-store";
+import { QuestProvider } from "@/components/pacman/quest-store";
 import { useGenerativeUIExamples, useExampleSuggestions } from "@/hooks";
 
-import { CopilotChat } from "@copilotkit/react-core/v2";
-// import { HeadlessChat } from "@/components/headless-chat";
-
-export default function HomePage() {
-  // 🪁 Generative UI Examples
+function HomeContent() {
   useGenerativeUIExamples();
-
-  // 🪁 Example Suggestions
   useExampleSuggestions();
 
   return (
-    <ExampleLayout
-      chatContent={<CopilotChat />}
-      // chatContent={<HeadlessChat />}
-      appContent={<ExampleCanvas />}
+    <PacManLayout
+      chatContent={<PacManChat />}
+      appContent={<PacManCanvas />}
+      calendarContent={<GoogleCalendar />}
     />
+  );
+}
+
+export default function HomePage() {
+  return (
+    <CalendarProvider>
+      <HITLProvider>
+        <QuestProvider>
+          <HomeContent />
+        </QuestProvider>
+      </HITLProvider>
+    </CalendarProvider>
   );
 }
