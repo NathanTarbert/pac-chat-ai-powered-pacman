@@ -1,5 +1,5 @@
 {
-  "name": "copilotkit-langgraph-template",
+  "name": "pac-chat",
   "private": true,
   "scripts": {
     "dev": "turbo run dev --filter='@repo/app'",
