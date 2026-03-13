@@ -2,7 +2,6 @@
 
 A retro arcade-themed AI agent app built with [CopilotKit](https://copilotkit.ai). Chat with a Pac-Man-styled AI assistant that manages quests, schedules meetings, queries data, and renders live charts — all through a shared state model where the agent and user both drive the UI.
 
-https://github.com/user-attachments/assets/47761912-d46a-4fb3-b9bd-cb41ddd02e34
 
 ## What It Does
 
