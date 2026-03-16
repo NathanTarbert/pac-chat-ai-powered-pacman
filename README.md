@@ -1,4 +1,7 @@
-# Pac-Chat: AI-Powered Pac-Man Quest Manager
+# Pac-Chat: AI-Powered Quest Manager
+
+<img width="1504" height="1270" alt="Screenshot 2026-03-16 at 10 11 52 AM" src="https://github.com/user-attachments/assets/0632baba-b98b-4ad6-a083-83e1c8c013b4" />
+
 
 A retro arcade-themed AI agent app built with [CopilotKit](https://copilotkit.ai). Chat with a Pac-Man-styled AI assistant that manages quests, schedules meetings, queries data, and renders live charts — all through a shared state model where the agent and user both drive the UI.
 
