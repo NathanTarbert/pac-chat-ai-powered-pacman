@@ -137,7 +137,7 @@ export function PacManChat() {
   const extraLifeShownAt = useRef<Set<number>>(new Set());
 
   const userMessageCount = useMemo(
-    () => agent.messages.filter((m: { role: string }) => m.role === "user").length,
+    () => agent.messages.filter((m) => m.role === "user").length,
     [agent.messages]
   );
 
@@ -185,7 +185,7 @@ export function PacManChat() {
 
   // Filter to visible messages (text + tool calls)
   const visibleMessages = agent.messages.filter(
-    (m: { role: string; content?: string | unknown; toolCalls?: { id: string }[] }) => {
+    (m) => {
       if (m.role === "user" && typeof m.content === "string" && m.content.trim()) return true;
       if (m.role === "assistant") {
         const hasText = typeof m.content === "string" && m.content.trim();
@@ -270,7 +270,7 @@ export function PacManChat() {
           </div>
         ) : (
           <>
-            {visibleMessages.map((msg: { id: string; role: string; content?: string | unknown; toolCalls?: { id: string }[] }) => (
+            {visibleMessages.map((msg) => (
               <div key={msg.id}>
                 {typeof msg.content === "string" && msg.content.trim() && (
                   <MessageBubble
@@ -278,10 +278,10 @@ export function PacManChat() {
                     content={msg.content}
                   />
                 )}
-                {msg.toolCalls?.map((tc: { id: string }) => {
+                {"toolCalls" in msg && msg.toolCalls?.map((tc) => {
                   const toolMessage = agent.messages.find(
-                    (m: { role: string; toolCallId?: string }) => m.role === "tool" && m.toolCallId === tc.id
-                  );
+                    (m) => m.role === "tool" && "toolCallId" in m && m.toolCallId === tc.id
+                  ) as { role: "tool"; toolCallId: string; content: string; id: string } | undefined;
                   const rendered = renderToolCall({ toolCall: tc, toolMessage });
                   return rendered ? <div key={tc.id} className="my-2">{rendered}</div> : null;
                 })}
