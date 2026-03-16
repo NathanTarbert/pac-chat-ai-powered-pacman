@@ -18,7 +18,7 @@ function GhostIcon({ color, size = 32 }: { color: string; size?: number }) {
 
 const inputClass =
   "w-full px-3 py-2 bg-[#0a0a1a] border-2 border-[#2121de] rounded-lg text-[#ffff00] text-sm focus:outline-none focus:border-[#33b5e5] focus:shadow-[0_0_10px_rgba(33,33,222,0.5)] transition-all placeholder-[#2121de]/60";
-const labelClass = "block text-[10px] font-bold tracking-widest text-[#33b5e5] mb-1.5";
+const labelClass = "block text-[10px] font-bold tracking-widest text-[#66d4f0] mb-1.5";
 
 /**
  * Inline HITL meeting form rendered in the chat.
@@ -77,7 +77,7 @@ export function InlineMeetingForm() {
               <h3 className="text-[#ffff00] font-bold text-xs tracking-widest">
                 {reason.toUpperCase()}
               </h3>
-              <p className="text-[#33b5e5] text-[9px] tracking-widest">FILL IN THE DETAILS</p>
+              <p className="text-[#66d4f0] text-[9px] tracking-widest">FILL IN THE DETAILS</p>
             </div>
           </div>
 
@@ -168,19 +168,19 @@ export function InlineMeetingForm() {
 
           <div className="space-y-2 mb-4 p-3 rounded-lg bg-[#1a1a2e] border border-[#2121de]">
             <div className="flex justify-between text-xs">
-              <span className="text-[#33b5e5] tracking-wider">NAME</span>
+              <span className="text-[#66d4f0] tracking-wider">NAME</span>
               <span className="text-[#ffff00] font-bold">{d.name}</span>
             </div>
             <div className="flex justify-between text-xs">
-              <span className="text-[#33b5e5] tracking-wider">DATE</span>
+              <span className="text-[#66d4f0] tracking-wider">DATE</span>
               <span className="text-[#ffff00] font-bold">{d.date}</span>
             </div>
             <div className="flex justify-between text-xs">
-              <span className="text-[#33b5e5] tracking-wider">TIME</span>
+              <span className="text-[#66d4f0] tracking-wider">TIME</span>
               <span className="text-[#ffff00] font-bold">{d.time}</span>
             </div>
             <div className="flex justify-between text-xs">
-              <span className="text-[#33b5e5] tracking-wider">DURATION</span>
+              <span className="text-[#66d4f0] tracking-wider">DURATION</span>
               <span className="text-[#ffff00] font-bold">{d.duration} min</span>
             </div>
           </div>
@@ -217,8 +217,8 @@ export function InlineMeetingForm() {
             <GhostIcon color="#33b5e5" size={28} />
           </div>
           <h3 className="text-[#ffff00] font-bold text-sm tracking-widest mb-2">QUEST SCHEDULED!</h3>
-          <p className="text-[#33b5e5] text-xs tracking-wider">{state.formData.name}</p>
-          <p className="text-[#ffb8ae] text-xs tracking-wider">
+          <p className="text-[#66d4f0] text-xs tracking-wider">{state.formData.name}</p>
+          <p className="text-[#ffd0c8] text-xs tracking-wider">
             {state.formData.date} @ {state.formData.time}
           </p>
           <div className="flex justify-center mt-2">
@@ -238,7 +238,7 @@ export function InlineMeetingForm() {
             <GhostIcon color="#ff0000" size={28} />
           </div>
           <h3 className="text-[#ff0000] font-bold text-sm tracking-widest">CANCELLED</h3>
-          <p className="text-[#33b5e5] text-xs tracking-wider mt-1">Maybe next time...</p>
+          <p className="text-[#66d4f0] text-xs tracking-wider mt-1">Maybe next time...</p>
         </div>
       </div>
     );

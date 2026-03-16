@@ -45,12 +45,12 @@ export function PacManToolReasoning({ name, args, status }: PacManToolReasoningP
     <div className="my-2 text-xs">
       {entries.length > 0 ? (
         <details ref={detailsRef} open>
-          <summary className="flex items-center gap-2 text-[#33b5e5] cursor-pointer list-none">
+          <summary className="flex items-center gap-2 text-[#66d4f0] cursor-pointer list-none">
             {statusIcon[toolStatus]}
             <span className="font-bold tracking-wider">{name.toUpperCase()}</span>
-            <span className="text-[8px] text-[#2121de]">&#9660;</span>
+            <span className="text-[8px] text-[#5555ff]">&#9660;</span>
           </summary>
-          <div className="pl-5 mt-1 space-y-0.5 text-[10px] text-[#ffb8ae]">
+          <div className="pl-5 mt-1 space-y-0.5 text-[10px] text-[#ffd0c8]">
             {entries.map(([key, value]) => (
               <div key={key} className="flex gap-2 min-w-0">
                 <span className="font-bold shrink-0 text-[#ffb852]">{key}:</span>
@@ -60,7 +60,7 @@ export function PacManToolReasoning({ name, args, status }: PacManToolReasoningP
           </div>
         </details>
       ) : (
-        <div className="flex items-center gap-2 text-[#33b5e5]">
+        <div className="flex items-center gap-2 text-[#66d4f0]">
           {statusIcon[toolStatus]}
           <span className="font-bold tracking-wider">{name.toUpperCase()}</span>
         </div>

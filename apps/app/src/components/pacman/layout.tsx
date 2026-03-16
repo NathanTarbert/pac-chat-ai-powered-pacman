@@ -30,7 +30,7 @@ function PacManToggle({ mode, onModeChange }: { mode: Mode; onModeChange: (m: Mo
           className={`px-3 py-1.5 rounded-md text-[10px] font-bold tracking-widest transition-all cursor-pointer ${
             mode === tab.key
               ? "bg-[#ffff00] text-black shadow-[0_0_10px_rgba(255,255,0,0.4)]"
-              : "text-[#2121de] hover:text-[#33b5e5]"
+              : "text-[#5555ff] hover:text-[#66d4f0]"
           }`}
         >
           {tab.label}
@@ -93,7 +93,27 @@ export function PacManLayout({ chatContent, appContent, calendarContent }: PacMa
   const showPanel = mode === "app" || mode === "calendar";
 
   return (
-    <div className="h-full flex flex-row bg-black">
+    <div className="h-full flex flex-row bg-black relative">
+      {/* Maze-style grid background */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-25"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, #2121de 1px, transparent 1px),
+            linear-gradient(to bottom, #2121de 1px, transparent 1px)
+          `,
+          backgroundSize: "24px 24px",
+        }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none opacity-35"
+        style={{
+          backgroundImage: "radial-gradient(circle, #ffb8ae 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+          backgroundPosition: "12px 12px",
+        }}
+      />
+
       <PacManToggle mode={mode} onModeChange={setMode} />
 
       {/* Maze borders */}
