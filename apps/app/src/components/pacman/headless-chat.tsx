@@ -1,7 +1,7 @@
 "use client";
 
 import { useAgent, useCopilotKit, useRenderToolCall } from "@copilotkit/react-core/v2";
-import { useCallback, useState, useRef, useEffect, useMemo } from "react";
+import { useCallback, useState, useRef, useEffect, useMemo, startTransition } from "react";
 import { useHITL } from "./hitl-store";
 import { InlineMeetingForm } from "./meeting-picker";
 
@@ -137,7 +137,7 @@ export function PacManChat() {
   const extraLifeShownAt = useRef<Set<number>>(new Set());
 
   const userMessageCount = useMemo(
-    () => agent.messages.filter((m: any) => m.role === "user").length,
+    () => agent.messages.filter((m: { role: string }) => m.role === "user").length,
     [agent.messages]
   );
 
@@ -153,7 +153,7 @@ export function PacManChat() {
   useEffect(() => {
     if (userMessageCount > 0 && userMessageCount % 5 === 0 && !extraLifeShownAt.current.has(userMessageCount)) {
       extraLifeShownAt.current.add(userMessageCount);
-      setToast("1UP! You won an extra life!");
+      startTransition(() => setToast("1UP! You won an extra life!"));
       const timer = setTimeout(() => setToast(null), 3000);
       return () => clearTimeout(timer);
     }
@@ -185,7 +185,7 @@ export function PacManChat() {
 
   // Filter to visible messages (text + tool calls)
   const visibleMessages = agent.messages.filter(
-    (m: any) => {
+    (m: { role: string; content?: string | unknown; toolCalls?: { id: string }[] }) => {
       if (m.role === "user" && typeof m.content === "string" && m.content.trim()) return true;
       if (m.role === "assistant") {
         const hasText = typeof m.content === "string" && m.content.trim();
@@ -270,7 +270,7 @@ export function PacManChat() {
           </div>
         ) : (
           <>
-            {visibleMessages.map((msg: any) => (
+            {visibleMessages.map((msg: { id: string; role: string; content?: string | unknown; toolCalls?: { id: string }[] }) => (
               <div key={msg.id}>
                 {typeof msg.content === "string" && msg.content.trim() && (
                   <MessageBubble
@@ -278,10 +278,10 @@ export function PacManChat() {
                     content={msg.content}
                   />
                 )}
-                {msg.toolCalls?.map((tc: any) => {
+                {msg.toolCalls?.map((tc: { id: string }) => {
                   const toolMessage = agent.messages.find(
-                    (m: any) => m.role === "tool" && m.toolCallId === tc.id
-                  ) as any;
+                    (m: { role: string; toolCallId?: string }) => m.role === "tool" && m.toolCallId === tc.id
+                  );
                   const rendered = renderToolCall({ toolCall: tc, toolMessage });
                   return rendered ? <div key={tc.id} className="my-2">{rendered}</div> : null;
                 })}

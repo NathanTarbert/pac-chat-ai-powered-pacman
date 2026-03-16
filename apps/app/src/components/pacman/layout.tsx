@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState, useEffect, useRef } from "react";
+import { ReactNode, useState, useEffect, useRef, startTransition } from "react";
 import { useFrontendTool } from "@copilotkit/react-core/v2";
 import { z } from "zod";
 import { useHITL } from "./hitl-store";
@@ -50,7 +50,7 @@ export function PacManLayout({ chatContent, appContent, calendarContent }: PacMa
   useEffect(() => {
     const currentCount = quests.length;
     if (currentCount > prevTodoCountRef.current && prevTodoCountRef.current >= 0) {
-      setMode("app");
+      startTransition(() => setMode("app"));
     }
     prevTodoCountRef.current = currentCount;
   }, [quests]);
@@ -58,7 +58,7 @@ export function PacManLayout({ chatContent, appContent, calendarContent }: PacMa
   // Auto-open calendar when a meeting is confirmed via HITL
   useEffect(() => {
     if (hitlState.phase === "done") {
-      setMode("calendar");
+      startTransition(() => setMode("calendar"));
     }
   }, [hitlState.phase]);
 
