@@ -13,6 +13,7 @@ interface Todo {
 interface PacManTodoColumnProps {
   title: string;
   todos: Todo[];
+  questNumbers: Map<string, number>;
   emptyMessage: string;
   showAddButton?: boolean;
   onAddTodo?: () => void;
@@ -39,6 +40,7 @@ function GhostSmall({ color }: { color: string }) {
 export function PacManTodoColumn({
   title,
   todos,
+  questNumbers,
   emptyMessage,
   showAddButton = false,
   onAddTodo,
@@ -81,7 +83,7 @@ export function PacManTodoColumn({
       {/* Cards */}
       <div className="space-y-3">
         {todos.length === 0 ? (
-          <div className="text-center text-xs rounded-lg border-2 border-dashed p-5 min-h-[120px] flex items-center justify-center text-[#2121de] border-[#2121de] tracking-wider">
+          <div className="text-center text-xs rounded-lg border-2 border-dashed p-5 min-h-[120px] flex items-center justify-center text-[#5555ff] border-[#2121de] tracking-wider">
             {/* Power pellet in empty state */}
             <div className="flex flex-col items-center gap-2">
               <div
@@ -96,6 +98,7 @@ export function PacManTodoColumn({
             <PacManTodoCard
               key={todo.id}
               todo={todo}
+              questNumber={questNumbers.get(todo.id) ?? 0}
               onToggleStatus={onToggleStatus}
               onDelete={onDelete}
               onUpdateTitle={onUpdateTitle}

@@ -18,7 +18,7 @@ export const POST = async (req: NextRequest) => {
 
   return NextResponse.json({
     answer: data.answer,
-    results: data.results?.map((r: any) => ({
+    results: data.results?.map((r: { title: string; content: string; url: string }) => ({
       title: r.title,
       content: r.content,
       url: r.url,

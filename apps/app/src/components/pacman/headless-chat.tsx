@@ -1,7 +1,7 @@
 "use client";
 
 import { useAgent, useCopilotKit, useRenderToolCall } from "@copilotkit/react-core/v2";
-import { useCallback, useState, useRef, useEffect } from "react";
+import { useCallback, useState, useRef, useEffect, useMemo, startTransition } from "react";
 import { useHITL } from "./hitl-store";
 import { InlineMeetingForm } from "./meeting-picker";
 
@@ -106,7 +106,7 @@ function MessageBubble({ role, content }: MessageBubbleProps) {
           className={`relative px-4 py-3 rounded-lg text-sm leading-relaxed ${
             isUser
               ? "bg-[#ffff00] text-black rounded-tr-none"
-              : "bg-[#1a1a2e] text-[#33b5e5] border border-[#2121de] rounded-tl-none"
+              : "bg-[#1a1a2e] text-[#66d4f0] border border-[#2121de] rounded-tl-none"
           }`}
           style={!isUser ? { animation: "maze-glow 3s ease-in-out infinite" } : undefined}
         >
@@ -133,6 +133,13 @@ export function PacManChat() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [toast, setToast] = useState<string | null>(null);
+  const extraLifeShownAt = useRef<Set<number>>(new Set());
+
+  const userMessageCount = useMemo(
+    () => agent.messages.filter((m) => m.role === "user").length,
+    [agent.messages]
+  );
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -141,6 +148,16 @@ export function PacManChat() {
   useEffect(() => {
     scrollToBottom();
   }, [agent.messages, hitlState.phase, scrollToBottom]);
+
+  // Extra life toast every 10 user messages
+  useEffect(() => {
+    if (userMessageCount > 0 && userMessageCount % 5 === 0 && !extraLifeShownAt.current.has(userMessageCount)) {
+      extraLifeShownAt.current.add(userMessageCount);
+      startTransition(() => setToast("1UP! You won an extra life!"));
+      const timer = setTimeout(() => setToast(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [userMessageCount]);
 
   const sendMessage = useCallback(
     (msg: string) => {
@@ -168,7 +185,7 @@ export function PacManChat() {
 
   // Filter to visible messages (text + tool calls)
   const visibleMessages = agent.messages.filter(
-    (m: any) => {
+    (m) => {
       if (m.role === "user" && typeof m.content === "string" && m.content.trim()) return true;
       if (m.role === "assistant") {
         const hasText = typeof m.content === "string" && m.content.trim();
@@ -182,14 +199,14 @@ export function PacManChat() {
   const showHITLForm = hitlState.phase !== "idle";
 
   return (
-    <div className="flex flex-col h-full bg-black">
+    <div className="relative flex flex-col h-full">
       {/* Header */}
       <div className="flex-shrink-0 px-4 py-3 border-b-2 border-[#2121de] bg-[#0a0a1a]">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 min-w-0">
           <PacManSprite size={28} />
-          <div>
-            <h2 className="text-[#ffff00] text-sm font-bold tracking-wider">PAC-CHAT</h2>
-            <div className="text-[10px] text-[#33b5e5] tracking-wider">
+          <div className="min-w-0">
+            <h2 className="text-[#ffff00] text-sm font-bold tracking-wider truncate">PAC-CHAT</h2>
+            <div className="text-[10px] text-[#66d4f0] tracking-wider truncate">
               {agent.isRunning ? (
                 <span className="flex items-center gap-1">
                   <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#ff0000] animate-pulse" />
@@ -201,14 +218,21 @@ export function PacManChat() {
             </div>
           </div>
           {/* Score */}
-          <div className="ml-auto text-right">
-            <div className="text-[10px] text-[#ffb8ae] tracking-wider">MESSAGES</div>
+          <div className="flex-shrink-0 border-l-2 border-[#2121de] pl-3">
+            <div className="text-[10px] text-[#ffd0c8] tracking-wider">MESSAGES</div>
             <div className="text-[#ffff00] font-bold text-sm tabular-nums">
-              {String(visibleMessages.length).padStart(4, "0")}
+              {String(userMessageCount).padStart(4, "0")}
             </div>
           </div>
         </div>
       </div>
+
+      {/* Extra life toast */}
+      {toast && (
+        <div className="absolute top-14 left-1/2 -translate-x-1/2 z-50 px-6 py-3 bg-[#1a1a2e] border-2 border-[#ffff00] rounded-lg shadow-[0_0_20px_rgba(255,255,0,0.4)] animate-[score-pop_0.3s_ease-out]">
+          <span className="text-[#ffff00] font-bold text-sm tracking-wider">{toast}</span>
+        </div>
+      )}
 
       {/* Messages area */}
       <div className="flex-1 overflow-y-auto px-4 py-4">
@@ -228,7 +252,7 @@ export function PacManChat() {
               </div>
             </div>
             <div className="text-[#ffff00] font-bold text-lg tracking-wider mt-4">READY!</div>
-            <div className="text-[#33b5e5] text-xs tracking-wider max-w-xs">
+            <div className="text-[#66d4f0] text-xs tracking-wider max-w-xs">
               INSERT MESSAGE TO START
             </div>
             {/* Suggestion pills */}
@@ -237,7 +261,7 @@ export function PacManChat() {
                 <button
                   key={suggestion}
                   onClick={() => sendMessage(suggestion)}
-                  className="px-3 py-1.5 text-[11px] rounded-full border border-[#2121de] text-[#33b5e5] hover:bg-[#2121de] hover:text-[#ffff00] transition-colors cursor-pointer tracking-wide"
+                  className="px-3 py-1.5 text-[11px] rounded-full border border-[#2121de] text-[#66d4f0] hover:bg-[#2121de] hover:text-[#ffff00] transition-colors cursor-pointer tracking-wide"
                 >
                   {suggestion}
                 </button>
@@ -246,7 +270,7 @@ export function PacManChat() {
           </div>
         ) : (
           <>
-            {visibleMessages.map((msg: any) => (
+            {visibleMessages.map((msg) => (
               <div key={msg.id}>
                 {typeof msg.content === "string" && msg.content.trim() && (
                   <MessageBubble
@@ -254,10 +278,10 @@ export function PacManChat() {
                     content={msg.content}
                   />
                 )}
-                {msg.toolCalls?.map((tc: any) => {
+                {"toolCalls" in msg && msg.toolCalls?.map((tc) => {
                   const toolMessage = agent.messages.find(
-                    (m: any) => m.role === "tool" && m.toolCallId === tc.id
-                  ) as any;
+                    (m) => m.role === "tool" && "toolCallId" in m && m.toolCallId === tc.id
+                  ) as { role: "tool"; toolCallId: string; content: string; id: string } | undefined;
                   const rendered = renderToolCall({ toolCall: tc, toolMessage });
                   return rendered ? <div key={tc.id} className="my-2">{rendered}</div> : null;
                 })}
@@ -283,7 +307,7 @@ export function PacManChat() {
                 key={s}
                 onClick={() => { sendMessage(s); setShowSuggestions(false); }}
                 disabled={agent.isRunning || showHITLForm}
-                className="px-2.5 py-1 text-[10px] rounded-full border border-[#2121de] text-[#33b5e5] hover:bg-[#2121de] hover:text-[#ffff00] transition-colors cursor-pointer tracking-wide disabled:opacity-30 disabled:cursor-not-allowed"
+                className="px-2.5 py-1 text-[10px] rounded-full border border-[#2121de] text-[#66d4f0] hover:bg-[#2121de] hover:text-[#ffff00] transition-colors cursor-pointer tracking-wide disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 {s}
               </button>
@@ -302,7 +326,7 @@ export function PacManChat() {
               className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center transition-colors cursor-pointer ${
                 showSuggestions
                   ? "bg-[#2121de] text-[#ffff00]"
-                  : "bg-[#1a1a2e] border-2 border-[#2121de] text-[#33b5e5] hover:border-[#33b5e5]"
+                  : "bg-[#1a1a2e] border-2 border-[#2121de] text-[#66d4f0] hover:border-[#33b5e5]"
               }`}
               aria-label="Toggle suggestions"
             >
