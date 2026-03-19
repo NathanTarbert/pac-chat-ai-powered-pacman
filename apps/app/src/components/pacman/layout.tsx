@@ -27,7 +27,7 @@ function PacManToggle({ mode, onModeChange }: { mode: Mode; onModeChange: (m: Mo
         <button
           key={tab.key}
           onClick={() => onModeChange(tab.key)}
-          className={`px-3 py-1.5 rounded-md text-[10px] font-bold tracking-widest transition-all cursor-pointer ${
+          className={`px-3 py-1.5 rounded-md text-[11px] font-bold tracking-widest transition-all cursor-pointer ${
             mode === tab.key
               ? "bg-[#ffff00] text-black shadow-[0_0_10px_rgba(255,255,0,0.4)]"
               : "text-[#5555ff] hover:text-[#66d4f0]"

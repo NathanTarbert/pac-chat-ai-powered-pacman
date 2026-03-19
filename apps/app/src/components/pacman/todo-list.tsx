@@ -60,7 +60,7 @@ export function PacManTodoList({ todos, onUpdate, isAgentRunning }: PacManTodoLi
       <div className="flex flex-col items-center justify-center h-full gap-4">
         {/* Pac-Man eating dots animation */}
         <div className="flex items-center gap-2">
-          <div className="relative w-12 h-12">
+          <div className="relative w-14 h-14">
             <div
               className="absolute inset-0 rounded-full bg-[#ffff00]"
               style={{
@@ -78,17 +78,17 @@ export function PacManTodoList({ todos, onUpdate, isAgentRunning }: PacManTodoLi
             {[0, 1, 2, 3, 4].map((i) => (
               <div
                 key={i}
-                className="w-2 h-2 rounded-full bg-[#ffb8ae]"
+                className="w-2.5 h-2.5 rounded-full bg-[#ffb8ae]"
                 style={{ animation: `dot-pulse 1s ease-in-out ${i * 0.15}s infinite` }}
               />
             ))}
           </div>
         </div>
-        <p className="text-[#ffff00] font-bold text-lg tracking-wider mt-4">NO QUESTS YET</p>
-        <p className="text-[#66d4f0] text-xs tracking-wider">START YOUR ADVENTURE</p>
+        <p className="text-[#ffff00] font-bold text-xl tracking-wider mt-4">NO QUESTS YET</p>
+        <p className="text-[#66d4f0] text-sm tracking-wider">START YOUR ADVENTURE</p>
         <button
           onClick={addTodo}
-          className="mt-2 px-6 py-2.5 text-sm font-bold tracking-wider rounded-lg cursor-pointer transition-all text-black bg-[#ffff00] hover:bg-[#ffb852] hover:shadow-[0_0_15px_rgba(255,255,0,0.5)] disabled:opacity-50"
+          className="mt-2 px-6 py-3 text-base font-bold tracking-wider rounded-lg cursor-pointer transition-all text-black bg-[#ffff00] hover:bg-[#ffb852] hover:shadow-[0_0_15px_rgba(255,255,0,0.5)] disabled:opacity-50"
           aria-label="Add your first quest"
           disabled={isAgentRunning}
         >
