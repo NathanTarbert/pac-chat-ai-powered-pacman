@@ -36,11 +36,11 @@ export function QuestProvider({ children }: { children: ReactNode }) {
   // Let the LLM manage quests
   useFrontendTool({
     name: "manage_quests",
-    description: "Add, update, or replace the quests list. Pass the full updated quests array. Each quest needs: title, description, emoji, status ('pending' or 'completed'). Existing quests should keep their id.",
+    description: "Add, update, or replace the quests list. Pass the full updated quests array. Each quest needs: title (must be descriptive, at least 4-6 words), description, emoji, status ('pending' or 'completed'). Existing quests should keep their id.",
     parameters: z.object({
       quests: z.array(z.object({
         id: z.string().optional().describe("Existing quest id, omit for new quests"),
-        title: z.string().describe("Quest title"),
+        title: z.string().describe("Quest title — must be descriptive, at least 4-6 words long"),
         description: z.string().describe("Quest description"),
         emoji: z.string().describe("An emoji for the quest"),
         status: z.enum(["pending", "completed"]).describe("Quest status"),

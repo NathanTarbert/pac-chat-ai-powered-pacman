@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useHITL } from "./hitl-store";
 import { useCalendar } from "./calendar/calendar-store";
 
-function GhostIcon({ color, size = 32 }: { color: string; size?: number }) {
+function GhostIcon({ color, size = 35 }: { color: string; size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" style={{ animation: "ghost-float 2s ease-in-out infinite" }}>
       <path d="M4 22V12C4 7.58 7.58 4 12 4s8 3.58 8 8v10l-2.5-2.5L15 22l-3-3-3 3-2.5-2.5L4 22z" fill={color} />
@@ -17,8 +17,8 @@ function GhostIcon({ color, size = 32 }: { color: string; size?: number }) {
 }
 
 const inputClass =
-  "w-full px-3 py-2 bg-[#0a0a1a] border-2 border-[#2121de] rounded-lg text-[#ffff00] text-sm focus:outline-none focus:border-[#33b5e5] focus:shadow-[0_0_10px_rgba(33,33,222,0.5)] transition-all placeholder-[#2121de]/60";
-const labelClass = "block text-[10px] font-bold tracking-widest text-[#33b5e5] mb-1.5";
+  "w-full px-3 py-2 bg-[#0a0a1a] border-2 border-[#2121de] rounded-lg text-[#ffff00] text-base focus:outline-none focus:border-[#33b5e5] focus:shadow-[0_0_10px_rgba(33,33,222,0.5)] transition-all placeholder-[#2121de]/60";
+const labelClass = "block text-[11px] font-bold tracking-widest text-[#66d4f0] mb-1.5";
 
 /**
  * Inline HITL meeting form rendered in the chat.
@@ -70,14 +70,14 @@ export function InlineMeetingForm() {
         className="rounded-lg w-full border-2 border-[#2121de] bg-black overflow-hidden mb-4 animate-[score-pop_0.3s_ease-out]"
         style={{ animation: "maze-glow 3s ease-in-out infinite" }}
       >
-        <div className="p-4">
+        <div className="p-5">
           <div className="flex items-center gap-2 mb-4">
-            <GhostIcon color="#ffb852" size={24} />
+            <GhostIcon color="#ffb852" size={26} />
             <div>
-              <h3 className="text-[#ffff00] font-bold text-xs tracking-widest">
+              <h3 className="text-[#ffff00] font-bold text-sm tracking-widest">
                 {reason.toUpperCase()}
               </h3>
-              <p className="text-[#33b5e5] text-[9px] tracking-widest">FILL IN THE DETAILS</p>
+              <p className="text-[#66d4f0] text-[10px] tracking-widest">FILL IN THE DETAILS</p>
             </div>
           </div>
 
@@ -134,14 +134,14 @@ export function InlineMeetingForm() {
               <button
                 type="submit"
                 disabled={!canSubmit}
-                className="flex-1 px-4 py-2 rounded-lg font-bold text-xs tracking-widest text-black bg-[#ffff00] hover:bg-[#ffb852] hover:shadow-[0_0_15px_rgba(255,255,0,0.4)] transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                className="flex-1 px-5 py-2 rounded-lg font-bold text-sm tracking-widest text-black bg-[#ffff00] hover:bg-[#ffb852] hover:shadow-[0_0_15px_rgba(255,255,0,0.4)] transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 NEXT
               </button>
               <button
                 type="button"
                 onClick={cancel}
-                className="px-4 py-2 rounded-lg font-bold text-[10px] tracking-widest text-[#ff0000] border border-[#ff0000]/30 hover:border-[#ff0000] hover:bg-[#ff0000]/10 transition-all cursor-pointer"
+                className="px-5 py-2 rounded-lg font-bold text-[11px] tracking-widest text-[#ff0000] border border-[#ff0000]/30 hover:border-[#ff0000] hover:bg-[#ff0000]/10 transition-all cursor-pointer"
               >
                 CANCEL
               </button>
@@ -160,45 +160,45 @@ export function InlineMeetingForm() {
         className="rounded-lg w-full border-2 border-[#ffb852] bg-black overflow-hidden mb-4 animate-[score-pop_0.3s_ease-out]"
         style={{ boxShadow: "0 0 15px rgba(255,184,82,0.3)" }}
       >
-        <div className="p-4">
+        <div className="p-5">
           <div className="flex items-center gap-2 mb-3">
-            <GhostIcon color="#ffb852" size={24} />
-            <h3 className="text-[#ffb852] font-bold text-xs tracking-widest">CONFIRM QUEST</h3>
+            <GhostIcon color="#ffb852" size={26} />
+            <h3 className="text-[#ffb852] font-bold text-sm tracking-widest">CONFIRM QUEST</h3>
           </div>
 
           <div className="space-y-2 mb-4 p-3 rounded-lg bg-[#1a1a2e] border border-[#2121de]">
-            <div className="flex justify-between text-xs">
-              <span className="text-[#33b5e5] tracking-wider">NAME</span>
+            <div className="flex justify-between text-sm">
+              <span className="text-[#66d4f0] tracking-wider">NAME</span>
               <span className="text-[#ffff00] font-bold">{d.name}</span>
             </div>
-            <div className="flex justify-between text-xs">
-              <span className="text-[#33b5e5] tracking-wider">DATE</span>
+            <div className="flex justify-between text-sm">
+              <span className="text-[#66d4f0] tracking-wider">DATE</span>
               <span className="text-[#ffff00] font-bold">{d.date}</span>
             </div>
-            <div className="flex justify-between text-xs">
-              <span className="text-[#33b5e5] tracking-wider">TIME</span>
+            <div className="flex justify-between text-sm">
+              <span className="text-[#66d4f0] tracking-wider">TIME</span>
               <span className="text-[#ffff00] font-bold">{d.time}</span>
             </div>
-            <div className="flex justify-between text-xs">
-              <span className="text-[#33b5e5] tracking-wider">DURATION</span>
+            <div className="flex justify-between text-sm">
+              <span className="text-[#66d4f0] tracking-wider">DURATION</span>
               <span className="text-[#ffff00] font-bold">{d.duration} min</span>
             </div>
           </div>
 
-          <p className="text-[10px] text-[#ffb852] tracking-wider text-center mb-3">
+          <p className="text-[11px] text-[#ffb852] tracking-wider text-center mb-3">
             ADD THIS QUEST TO YOUR CALENDAR?
           </p>
 
           <div className="flex gap-3">
             <button
               onClick={handleConfirm}
-              className="flex-1 px-4 py-2 rounded-lg font-bold text-xs tracking-widest text-black bg-[#ffff00] hover:bg-[#ffb852] hover:shadow-[0_0_15px_rgba(255,255,0,0.4)] transition-all cursor-pointer"
+              className="flex-1 px-5 py-2 rounded-lg font-bold text-sm tracking-widest text-black bg-[#ffff00] hover:bg-[#ffb852] hover:shadow-[0_0_15px_rgba(255,255,0,0.4)] transition-all cursor-pointer"
             >
               CONFIRM
             </button>
             <button
               onClick={cancel}
-              className="px-4 py-2 rounded-lg font-bold text-[10px] tracking-widest text-[#ff0000] border border-[#ff0000]/30 hover:border-[#ff0000] hover:bg-[#ff0000]/10 transition-all cursor-pointer"
+              className="px-5 py-2 rounded-lg font-bold text-[11px] tracking-widest text-[#ff0000] border border-[#ff0000]/30 hover:border-[#ff0000] hover:bg-[#ff0000]/10 transition-all cursor-pointer"
             >
               CANCEL
             </button>
@@ -212,17 +212,17 @@ export function InlineMeetingForm() {
   if (state.phase === "done" && state.formData) {
     return (
       <div className="rounded-lg w-full border-2 border-[#33b679] bg-black overflow-hidden mb-4 animate-[score-pop_0.3s_ease-out]">
-        <div className="p-4 text-center">
+        <div className="p-5 text-center">
           <div className="flex justify-center mb-2">
-            <GhostIcon color="#33b5e5" size={28} />
+            <GhostIcon color="#33b5e5" size={31} />
           </div>
-          <h3 className="text-[#ffff00] font-bold text-sm tracking-widest mb-2">QUEST SCHEDULED!</h3>
-          <p className="text-[#33b5e5] text-xs tracking-wider">{state.formData.name}</p>
-          <p className="text-[#ffb8ae] text-xs tracking-wider">
+          <h3 className="text-[#ffff00] font-bold text-base tracking-widest mb-2">QUEST SCHEDULED!</h3>
+          <p className="text-[#66d4f0] text-sm tracking-wider">{state.formData.name}</p>
+          <p className="text-[#ffd0c8] text-sm tracking-wider">
             {state.formData.date} @ {state.formData.time}
           </p>
           <div className="flex justify-center mt-2">
-            <span className="text-[#ffff00] font-bold text-xs animate-[score-pop_0.3s_ease-out]">+500 PTS</span>
+            <span className="text-[#ffff00] font-bold text-sm animate-[score-pop_0.3s_ease-out]">+500 PTS</span>
           </div>
         </div>
       </div>
@@ -233,12 +233,12 @@ export function InlineMeetingForm() {
   if (state.phase === "cancelled") {
     return (
       <div className="rounded-lg w-full border-2 border-[#ff0000]/30 bg-black overflow-hidden mb-4">
-        <div className="p-4 text-center">
+        <div className="p-5 text-center">
           <div className="flex justify-center mb-2">
-            <GhostIcon color="#ff0000" size={28} />
+            <GhostIcon color="#ff0000" size={31} />
           </div>
-          <h3 className="text-[#ff0000] font-bold text-sm tracking-widest">CANCELLED</h3>
-          <p className="text-[#33b5e5] text-xs tracking-wider mt-1">Maybe next time...</p>
+          <h3 className="text-[#ff0000] font-bold text-base tracking-widest">CANCELLED</h3>
+          <p className="text-[#66d4f0] text-sm tracking-wider mt-1">Maybe next time...</p>
         </div>
       </div>
     );

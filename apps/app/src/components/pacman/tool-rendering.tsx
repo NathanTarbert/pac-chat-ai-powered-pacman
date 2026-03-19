@@ -11,17 +11,17 @@ interface PacManToolReasoningProps {
 const statusIcon: Record<string, React.ReactNode> = {
   executing: (
     <span
-      className="inline-block w-3 h-3 rounded-full bg-[#ffff00]"
+      className="inline-block w-3.5 h-3.5 rounded-full bg-[#ffff00]"
       style={{ animation: "waka 0.4s ease-in-out infinite" }}
     />
   ),
   inProgress: (
     <span
-      className="inline-block w-3 h-3 rounded-full bg-[#ffb852]"
+      className="inline-block w-3.5 h-3.5 rounded-full bg-[#ffb852]"
       style={{ animation: "waka 0.4s ease-in-out infinite" }}
     />
   ),
-  complete: <span className="text-[#ffff00] text-xs font-bold">+100</span>,
+  complete: <span className="text-[#ffff00] text-sm font-bold">+100</span>,
 };
 
 function formatValue(value: unknown): string {
@@ -42,15 +42,15 @@ export function PacManToolReasoning({ name, args, status }: PacManToolReasoningP
   }, [status]);
 
   return (
-    <div className="my-2 text-xs">
+    <div className="my-2 text-sm">
       {entries.length > 0 ? (
         <details ref={detailsRef} open>
-          <summary className="flex items-center gap-2 text-[#33b5e5] cursor-pointer list-none">
+          <summary className="flex items-center gap-2 text-[#66d4f0] cursor-pointer list-none">
             {statusIcon[toolStatus]}
             <span className="font-bold tracking-wider">{name.toUpperCase()}</span>
-            <span className="text-[8px] text-[#2121de]">&#9660;</span>
+            <span className="text-[9px] text-[#5555ff]">&#9660;</span>
           </summary>
-          <div className="pl-5 mt-1 space-y-0.5 text-[10px] text-[#ffb8ae]">
+          <div className="pl-5 mt-1 space-y-0.5 text-[11px] text-[#ffd0c8]">
             {entries.map(([key, value]) => (
               <div key={key} className="flex gap-2 min-w-0">
                 <span className="font-bold shrink-0 text-[#ffb852]">{key}:</span>
@@ -60,7 +60,7 @@ export function PacManToolReasoning({ name, args, status }: PacManToolReasoningP
           </div>
         </details>
       ) : (
-        <div className="flex items-center gap-2 text-[#33b5e5]">
+        <div className="flex items-center gap-2 text-[#66d4f0]">
           {statusIcon[toolStatus]}
           <span className="font-bold tracking-wider">{name.toUpperCase()}</span>
         </div>

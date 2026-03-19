@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState, useEffect, useRef } from "react";
+import { ReactNode, useState, useEffect, useRef, startTransition } from "react";
 import { useFrontendTool } from "@copilotkit/react-core/v2";
 import { z } from "zod";
 import { useHITL } from "./hitl-store";
@@ -27,10 +27,10 @@ function PacManToggle({ mode, onModeChange }: { mode: Mode; onModeChange: (m: Mo
         <button
           key={tab.key}
           onClick={() => onModeChange(tab.key)}
-          className={`px-3 py-1.5 rounded-md text-[10px] font-bold tracking-widest transition-all cursor-pointer ${
+          className={`px-3 py-1.5 rounded-md text-[11px] font-bold tracking-widest transition-all cursor-pointer ${
             mode === tab.key
               ? "bg-[#ffff00] text-black shadow-[0_0_10px_rgba(255,255,0,0.4)]"
-              : "text-[#2121de] hover:text-[#33b5e5]"
+              : "text-[#5555ff] hover:text-[#66d4f0]"
           }`}
         >
           {tab.label}
@@ -50,7 +50,7 @@ export function PacManLayout({ chatContent, appContent, calendarContent }: PacMa
   useEffect(() => {
     const currentCount = quests.length;
     if (currentCount > prevTodoCountRef.current && prevTodoCountRef.current >= 0) {
-      setMode("app");
+      startTransition(() => setMode("app"));
     }
     prevTodoCountRef.current = currentCount;
   }, [quests]);
@@ -58,7 +58,7 @@ export function PacManLayout({ chatContent, appContent, calendarContent }: PacMa
   // Auto-open calendar when a meeting is confirmed via HITL
   useEffect(() => {
     if (hitlState.phase === "done") {
-      setMode("calendar");
+      startTransition(() => setMode("calendar"));
     }
   }, [hitlState.phase]);
 
@@ -93,7 +93,27 @@ export function PacManLayout({ chatContent, appContent, calendarContent }: PacMa
   const showPanel = mode === "app" || mode === "calendar";
 
   return (
-    <div className="h-full flex flex-row bg-black">
+    <div className="h-full flex flex-row bg-black relative">
+      {/* Maze-style grid background */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-25"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, #2121de 1px, transparent 1px),
+            linear-gradient(to bottom, #2121de 1px, transparent 1px)
+          `,
+          backgroundSize: "24px 24px",
+        }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none opacity-35"
+        style={{
+          backgroundImage: "radial-gradient(circle, #ffb8ae 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+          backgroundPosition: "12px 12px",
+        }}
+      />
+
       <PacManToggle mode={mode} onModeChange={setMode} />
 
       {/* Maze borders */}

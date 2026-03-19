@@ -13,6 +13,7 @@ interface Todo {
 interface PacManTodoColumnProps {
   title: string;
   todos: Todo[];
+  questNumbers: Map<string, number>;
   emptyMessage: string;
   showAddButton?: boolean;
   onAddTodo?: () => void;
@@ -26,7 +27,7 @@ interface PacManTodoColumnProps {
 
 function GhostSmall({ color }: { color: string }) {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" style={{ animation: "ghost-float 2s ease-in-out infinite" }}>
+    <svg width="18" height="18" viewBox="0 0 24 24" style={{ animation: "ghost-float 2s ease-in-out infinite" }}>
       <path d="M4 22V12C4 7.58 7.58 4 12 4s8 3.58 8 8v10l-2.5-2.5L15 22l-3-3-3 3-2.5-2.5L4 22z" fill={color} />
       <circle cx="9" cy="11" r="1.5" fill="white" />
       <circle cx="15" cy="11" r="1.5" fill="white" />
@@ -39,6 +40,7 @@ function GhostSmall({ color }: { color: string }) {
 export function PacManTodoColumn({
   title,
   todos,
+  questNumbers,
   emptyMessage,
   showAddButton = false,
   onAddTodo,
@@ -55,9 +57,9 @@ export function PacManTodoColumn({
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
           <GhostSmall color={ghostColor} />
-          <h2 className="text-sm font-bold tracking-widest text-[#ffff00]">{title}</h2>
+          <h2 className="text-base font-bold tracking-widest text-[#ffff00]">{title}</h2>
           <span
-            className="text-[11px] font-bold tracking-wider px-2.5 py-0.5 rounded-full text-black bg-[#ffff00]"
+            className="text-[12px] font-bold tracking-wider px-2.5 py-0.5 rounded-full text-black bg-[#ffff00]"
             style={{ animation: "score-pop 0.3s ease-out" }}
           >
             {String(todos.length).padStart(2, "0")}
@@ -70,7 +72,7 @@ export function PacManTodoColumn({
             aria-label="Add new quest"
             disabled={isAgentRunning}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
               <line x1="12" y1="5" x2="12" y2="19" />
               <line x1="5" y1="12" x2="19" y2="12" />
             </svg>
@@ -81,11 +83,11 @@ export function PacManTodoColumn({
       {/* Cards */}
       <div className="space-y-3">
         {todos.length === 0 ? (
-          <div className="text-center text-xs rounded-lg border-2 border-dashed p-5 min-h-[120px] flex items-center justify-center text-[#2121de] border-[#2121de] tracking-wider">
+          <div className="text-center text-sm rounded-lg border-2 border-dashed p-6 min-h-[120px] flex items-center justify-center text-[#5555ff] border-[#2121de] tracking-wider">
             {/* Power pellet in empty state */}
             <div className="flex flex-col items-center gap-2">
               <div
-                className="w-4 h-4 rounded-full bg-[#ffb8ae]"
+                className="w-5 h-5 rounded-full bg-[#ffb8ae]"
                 style={{ animation: "power-pellet 1.5s ease-in-out infinite" }}
               />
               {emptyMessage.toUpperCase()}
@@ -96,6 +98,7 @@ export function PacManTodoColumn({
             <PacManTodoCard
               key={todo.id}
               todo={todo}
+              questNumber={questNumbers.get(todo.id) ?? 0}
               onToggleStatus={onToggleStatus}
               onDelete={onDelete}
               onUpdateTitle={onUpdateTitle}
