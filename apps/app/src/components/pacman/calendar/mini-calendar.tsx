@@ -72,7 +72,7 @@ export function MiniCalendar({ selectedDate, onSelectDate, events }: MiniCalenda
     <div className="select-none">
       {/* Month/year header */}
       <div className="flex items-center justify-between mb-2">
-        <span className="text-sm font-medium text-[#3c4043]">
+        <span className="text-[15px] font-medium text-[#202124]">
           {MONTH_NAMES[viewMonth]} {viewYear}
         </span>
         <div className="flex gap-0.5">
@@ -88,7 +88,7 @@ export function MiniCalendar({ selectedDate, onSelectDate, events }: MiniCalenda
       {/* Day headers */}
       <div className="grid grid-cols-7 mb-1">
         {DAY_LABELS.map((l, i) => (
-          <div key={i} className="text-center text-[10px] font-medium text-[#70757a] py-0.5">
+          <div key={i} className="text-center text-[11px] font-medium text-[#5f6368] py-0.5">
             {l}
           </div>
         ))}
@@ -107,12 +107,12 @@ export function MiniCalendar({ selectedDate, onSelectDate, events }: MiniCalenda
               <button
                 key={di}
                 onClick={() => onSelectDate(day)}
-                className={`relative w-8 h-8 flex items-center justify-center text-xs rounded-full mx-auto cursor-pointer transition-colors ${
+                className={`relative w-8 h-8 flex items-center justify-center text-[13px] rounded-full mx-auto cursor-pointer transition-colors ${
                   isSelected
                     ? "bg-[#1a73e8] text-white"
                     : isToday
                     ? "bg-[#e8f0fe] text-[#1a73e8] font-bold"
-                    : "text-[#3c4043] hover:bg-[#f1f3f4]"
+                    : "text-[#202124] hover:bg-[#f1f3f4]"
                 }`}
               >
                 {day.getDate()}

@@ -115,15 +115,15 @@ export function PacManTodoCard({
                 if (e.key === "Enter") saveEdit("title");
                 if (e.key === "Escape") cancelEdit();
               }}
-              className="w-full text-base font-bold tracking-wider focus:outline-none bg-transparent text-[#ffff00] border-b border-[#ffff00] pb-0.5"
+              className="w-full text-[17px] font-bold tracking-wider focus:outline-none bg-transparent text-[#ffff55] border-b border-[#ffff55] pb-0.5"
               autoFocus
               aria-label="Edit quest title"
             />
           ) : (
             <div
               onClick={() => startEdit("title")}
-              className={`text-base font-bold tracking-wider cursor-text break-words leading-snug ${
-                isCompleted ? "text-[#ffff00] opacity-60 line-through" : "text-[#ffff00]"
+              className={`text-[17px] font-bold tracking-wider cursor-text break-words leading-snug ${
+                isCompleted ? "text-[#ffff55] opacity-60 line-through" : "text-[#ffff55]"
               }`}
             >
               #{questNumber} {todo.title}
@@ -139,7 +139,7 @@ export function PacManTodoCard({
               onKeyDown={(e) => {
                 if (e.key === "Escape") cancelEdit();
               }}
-              className="w-full mt-1 text-sm leading-relaxed focus:outline-none resize-none bg-transparent text-[#66d4f0] border-b border-[#33b5e5] pb-0.5"
+              className="w-full mt-1 text-[14px] leading-relaxed focus:outline-none resize-none bg-transparent text-[#b0f0ff] border-b border-[#33b5e5] pb-0.5"
               rows={1}
               autoFocus
               aria-label="Edit quest description"
@@ -147,8 +147,8 @@ export function PacManTodoCard({
           ) : (
             <p
               onClick={() => startEdit("description")}
-              className={`mt-1 text-sm leading-relaxed cursor-text tracking-wide ${
-                isCompleted ? "text-[#88aaff] line-through" : "text-[#66d4f0]"
+              className={`mt-1 text-[14px] leading-relaxed cursor-text tracking-wide ${
+                isCompleted ? "text-[#c0ddff] line-through" : "text-[#b0f0ff]"
               }`}
             >
               {truncatedDescription}
@@ -160,7 +160,7 @@ export function PacManTodoCard({
             {[0, 1, 2].map((i) => (
               <div key={i} className="w-1 h-1 rounded-full bg-[#ffb8ae] opacity-40" />
             ))}
-            <span className="text-[10px] text-[#ffd0c8] opacity-60 ml-1 tracking-widest">
+            <span className="text-[11px] text-[#ffebe5] opacity-80 ml-1 tracking-widest">
               {isCompleted ? "200 PTS" : "100 PTS"}
             </span>
           </div>

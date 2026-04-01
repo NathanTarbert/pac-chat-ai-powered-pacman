@@ -17,8 +17,8 @@ function GhostIcon({ color, size = 35 }: { color: string; size?: number }) {
 }
 
 const inputClass =
-  "w-full px-3 py-2 bg-[#0a0a1a] border-2 border-[#2121de] rounded-lg text-[#ffff00] text-base focus:outline-none focus:border-[#33b5e5] focus:shadow-[0_0_10px_rgba(33,33,222,0.5)] transition-all placeholder-[#2121de]/60";
-const labelClass = "block text-[11px] font-bold tracking-widest text-[#66d4f0] mb-1.5";
+  "w-full px-3 py-2 bg-[#0a0a1a] border-2 border-[#2121de] rounded-lg text-[#ffff55] text-[17px] focus:outline-none focus:border-[#33b5e5] focus:shadow-[0_0_10px_rgba(33,33,222,0.5)] transition-all placeholder-[#5555ff]/60";
+const labelClass = "block text-[12px] font-bold tracking-widest text-[#b0f0ff] mb-1.5";
 
 /**
  * Inline HITL meeting form rendered in the chat.
@@ -74,10 +74,10 @@ export function InlineMeetingForm() {
           <div className="flex items-center gap-2 mb-4">
             <GhostIcon color="#ffb852" size={26} />
             <div>
-              <h3 className="text-[#ffff00] font-bold text-sm tracking-widest">
+              <h3 className="text-[#ffff55] font-bold text-[14px] tracking-widest">
                 {reason.toUpperCase()}
               </h3>
-              <p className="text-[#66d4f0] text-[10px] tracking-widest">FILL IN THE DETAILS</p>
+              <p className="text-[#b0f0ff] text-[12px] tracking-widest">FILL IN THE DETAILS</p>
             </div>
           </div>
 
@@ -134,14 +134,14 @@ export function InlineMeetingForm() {
               <button
                 type="submit"
                 disabled={!canSubmit}
-                className="flex-1 px-5 py-2 rounded-lg font-bold text-sm tracking-widest text-black bg-[#ffff00] hover:bg-[#ffb852] hover:shadow-[0_0_15px_rgba(255,255,0,0.4)] transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                className="flex-1 px-5 py-2 rounded-lg font-bold text-[14px] tracking-widest text-black bg-[#ffff00] hover:bg-[#ffb852] hover:shadow-[0_0_15px_rgba(255,255,0,0.4)] transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 NEXT
               </button>
               <button
                 type="button"
                 onClick={cancel}
-                className="px-5 py-2 rounded-lg font-bold text-[11px] tracking-widest text-[#ff0000] border border-[#ff0000]/30 hover:border-[#ff0000] hover:bg-[#ff0000]/10 transition-all cursor-pointer"
+                className="px-5 py-2 rounded-lg font-bold text-[12px] tracking-widest text-[#ff4444] border border-[#ff0000]/30 hover:border-[#ff0000] hover:bg-[#ff0000]/10 transition-all cursor-pointer"
               >
                 CANCEL
               </button>
@@ -163,42 +163,42 @@ export function InlineMeetingForm() {
         <div className="p-5">
           <div className="flex items-center gap-2 mb-3">
             <GhostIcon color="#ffb852" size={26} />
-            <h3 className="text-[#ffb852] font-bold text-sm tracking-widest">CONFIRM QUEST</h3>
+            <h3 className="text-[#ffb852] font-bold text-[14px] tracking-widest">CONFIRM QUEST</h3>
           </div>
 
           <div className="space-y-2 mb-4 p-3 rounded-lg bg-[#1a1a2e] border border-[#2121de]">
-            <div className="flex justify-between text-sm">
-              <span className="text-[#66d4f0] tracking-wider">NAME</span>
-              <span className="text-[#ffff00] font-bold">{d.name}</span>
+            <div className="flex justify-between text-[14px]">
+              <span className="text-[#b0f0ff] tracking-wider">NAME</span>
+              <span className="text-[#ffff55] font-bold">{d.name}</span>
             </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-[#66d4f0] tracking-wider">DATE</span>
-              <span className="text-[#ffff00] font-bold">{d.date}</span>
+            <div className="flex justify-between text-[14px]">
+              <span className="text-[#b0f0ff] tracking-wider">DATE</span>
+              <span className="text-[#ffff55] font-bold">{d.date}</span>
             </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-[#66d4f0] tracking-wider">TIME</span>
-              <span className="text-[#ffff00] font-bold">{d.time}</span>
+            <div className="flex justify-between text-[14px]">
+              <span className="text-[#b0f0ff] tracking-wider">TIME</span>
+              <span className="text-[#ffff55] font-bold">{d.time}</span>
             </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-[#66d4f0] tracking-wider">DURATION</span>
-              <span className="text-[#ffff00] font-bold">{d.duration} min</span>
+            <div className="flex justify-between text-[14px]">
+              <span className="text-[#b0f0ff] tracking-wider">DURATION</span>
+              <span className="text-[#ffff55] font-bold">{d.duration} min</span>
             </div>
           </div>
 
-          <p className="text-[11px] text-[#ffb852] tracking-wider text-center mb-3">
+          <p className="text-[12px] text-[#ffc878] tracking-wider text-center mb-3">
             ADD THIS QUEST TO YOUR CALENDAR?
           </p>
 
           <div className="flex gap-3">
             <button
               onClick={handleConfirm}
-              className="flex-1 px-5 py-2 rounded-lg font-bold text-sm tracking-widest text-black bg-[#ffff00] hover:bg-[#ffb852] hover:shadow-[0_0_15px_rgba(255,255,0,0.4)] transition-all cursor-pointer"
+              className="flex-1 px-5 py-2 rounded-lg font-bold text-[14px] tracking-widest text-black bg-[#ffff00] hover:bg-[#ffb852] hover:shadow-[0_0_15px_rgba(255,255,0,0.4)] transition-all cursor-pointer"
             >
               CONFIRM
             </button>
             <button
               onClick={cancel}
-              className="px-5 py-2 rounded-lg font-bold text-[11px] tracking-widest text-[#ff0000] border border-[#ff0000]/30 hover:border-[#ff0000] hover:bg-[#ff0000]/10 transition-all cursor-pointer"
+              className="px-5 py-2 rounded-lg font-bold text-[12px] tracking-widest text-[#ff4444] border border-[#ff0000]/30 hover:border-[#ff0000] hover:bg-[#ff0000]/10 transition-all cursor-pointer"
             >
               CANCEL
             </button>
@@ -216,13 +216,13 @@ export function InlineMeetingForm() {
           <div className="flex justify-center mb-2">
             <GhostIcon color="#33b5e5" size={31} />
           </div>
-          <h3 className="text-[#ffff00] font-bold text-base tracking-widest mb-2">QUEST SCHEDULED!</h3>
-          <p className="text-[#66d4f0] text-sm tracking-wider">{state.formData.name}</p>
-          <p className="text-[#ffd0c8] text-sm tracking-wider">
+          <h3 className="text-[#ffff55] font-bold text-[15px] tracking-widest mb-2">QUEST SCHEDULED!</h3>
+          <p className="text-[#b0f0ff] text-[14px] tracking-wider">{state.formData.name}</p>
+          <p className="text-[#ffebe5] text-[14px] tracking-wider">
             {state.formData.date} @ {state.formData.time}
           </p>
           <div className="flex justify-center mt-2">
-            <span className="text-[#ffff00] font-bold text-sm animate-[score-pop_0.3s_ease-out]">+500 PTS</span>
+            <span className="text-[#ffff55] font-bold text-[14px] animate-[score-pop_0.3s_ease-out]">+500 PTS</span>
           </div>
         </div>
       </div>
@@ -237,8 +237,8 @@ export function InlineMeetingForm() {
           <div className="flex justify-center mb-2">
             <GhostIcon color="#ff0000" size={31} />
           </div>
-          <h3 className="text-[#ff0000] font-bold text-base tracking-widest">CANCELLED</h3>
-          <p className="text-[#66d4f0] text-sm tracking-wider mt-1">Maybe next time...</p>
+          <h3 className="text-[#ff4444] font-bold text-[15px] tracking-widest">CANCELLED</h3>
+          <p className="text-[#b0f0ff] text-[14px] tracking-wider mt-1">Maybe next time...</p>
         </div>
       </div>
     );

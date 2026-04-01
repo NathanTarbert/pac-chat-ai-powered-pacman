@@ -84,11 +84,11 @@ export function PacManTodoList({ todos, onUpdate, isAgentRunning }: PacManTodoLi
             ))}
           </div>
         </div>
-        <p className="text-[#ffff00] font-bold text-xl tracking-wider mt-4">NO QUESTS YET</p>
-        <p className="text-[#66d4f0] text-sm tracking-wider">START YOUR ADVENTURE</p>
+        <p className="text-[#ffff55] font-bold text-2xl tracking-wider mt-4">NO QUESTS YET</p>
+        <p className="text-[#b0f0ff] text-[15px] tracking-wider">START YOUR ADVENTURE</p>
         <button
           onClick={addTodo}
-          className="mt-2 px-6 py-3 text-base font-bold tracking-wider rounded-lg cursor-pointer transition-all text-black bg-[#ffff00] hover:bg-[#ffb852] hover:shadow-[0_0_15px_rgba(255,255,0,0.5)] disabled:opacity-50"
+          className="mt-2 px-6 py-3 text-[17px] font-bold tracking-wider rounded-lg cursor-pointer transition-all text-black bg-[#ffff55] hover:bg-[#ffb852] hover:shadow-[0_0_15px_rgba(255,255,0,0.5)] disabled:opacity-50"
           aria-label="Add your first quest"
           disabled={isAgentRunning}
         >

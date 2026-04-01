@@ -1,8 +1,10 @@
-# Pac-Chat: AI-Powered Pac-Man Quest Manager
+# Pac-Chat: AI-Powered Quest Manager
+
+<img width="1504" height="1270" alt="Screenshot 2026-03-16 at 10 11 52 AM" src="https://github.com/user-attachments/assets/0632baba-b98b-4ad6-a083-83e1c8c013b4" />
+
 
 A retro arcade-themed AI agent app built with [CopilotKit](https://copilotkit.ai). Chat with a Pac-Man-styled AI assistant that manages quests, schedules meetings, queries data, and renders live charts — all through a shared state model where the agent and user both drive the UI.
 
-https://github.com/user-attachments/assets/47761912-d46a-4fb3-b9bd-cb41ddd02e34
 
 ## What It Does
 
@@ -10,9 +12,9 @@ This isn't a typical chatbot wrapper. The AI agent has direct access to applicat
 
 **Three modes, one interface:**
 
-- **Chat** — Talk to the agent. It responds with Pac-Man flair (ghost avatars, arcade styling) and can take actions on your behalf.
-- **Quests** — A two-column kanban (Active / Cleared) where you or the agent manage tasks. Add, edit, delete, toggle status.
-- **Calendar** — Schedule meetings with a human-in-the-loop confirmation flow. The agent proposes a time, you approve or reject it.
+- **Chat** — Talk to the agent. It responds with Pac-Man flair (ghost avatars, arcade-style) and can take action on your behalf.
+- **Quests** — A two-column kanban (Active / Cleared) where you or the agent manages tasks. Add, edit, delete, toggle status.
+- **Calendar** — Schedule meetings with a human-in-the-loop confirmation flow. The agent proposes a time, and you approve or reject it.
 
 Plus generative UI: the agent can render pie charts, bar charts, and forms directly in the chat.
 
@@ -80,7 +82,7 @@ The Next.js app starts on [localhost:3000](http://localhost:3000).
 
 ## Key Patterns
 
-**Agent-driven UI** — State lives in the agent. The frontend is a view layer that reads from and writes to agent state. One source of truth, bidirectional sync, and the agent always knows what's on screen.
+**Agent-driven UI** — State lives in the agent. The frontend is a view layer that reads from and writes to the agent state. One source of truth, bidirectional sync, and the agent always knows what's on screen.
 
 **Human-in-the-loop** — For actions like scheduling meetings, the agent proposes and waits. The user confirms or cancels through a form rendered in the UI. Agent execution blocks until the human responds.
 
