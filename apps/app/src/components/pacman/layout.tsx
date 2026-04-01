@@ -27,10 +27,10 @@ function PacManToggle({ mode, onModeChange }: { mode: Mode; onModeChange: (m: Mo
         <button
           key={tab.key}
           onClick={() => onModeChange(tab.key)}
-          className={`px-3 py-1.5 rounded-md text-[10px] font-bold tracking-widest transition-all cursor-pointer ${
+          className={`px-3 py-1.5 rounded-md text-[12px] font-bold tracking-widest transition-all cursor-pointer ${
             mode === tab.key
-              ? "bg-[#ffff00] text-black shadow-[0_0_10px_rgba(255,255,0,0.4)]"
-              : "text-[#5555ff] hover:text-[#66d4f0]"
+              ? "bg-[#ffff55] text-black shadow-[0_0_10px_rgba(255,255,0,0.4)]"
+              : "text-[#9999ff] hover:text-[#b0f0ff]"
           }`}
         >
           {tab.label}
@@ -94,9 +94,9 @@ export function PacManLayout({ chatContent, appContent, calendarContent }: PacMa
 
   return (
     <div className="h-full flex flex-row bg-black relative">
-      {/* Maze-style grid background */}
+      {/* Maze-style grid background — only visible behind chat, not panels */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-25"
+        className="absolute inset-0 pointer-events-none opacity-25 z-0"
         style={{
           backgroundImage: `
             linear-gradient(to right, #2121de 1px, transparent 1px),
@@ -106,7 +106,7 @@ export function PacManLayout({ chatContent, appContent, calendarContent }: PacMa
         }}
       />
       <div
-        className="absolute inset-0 pointer-events-none opacity-35"
+        className="absolute inset-0 pointer-events-none opacity-35 z-0"
         style={{
           backgroundImage: "radial-gradient(circle, #ffb8ae 1px, transparent 1px)",
           backgroundSize: "24px 24px",
@@ -122,7 +122,7 @@ export function PacManLayout({ chatContent, appContent, calendarContent }: PacMa
 
       {/* Chat */}
       <div
-        className={`max-h-full overflow-y-auto transition-all duration-300 ${
+        className={`relative z-10 max-h-full overflow-y-auto transition-all duration-300 ${
           showPanel ? "w-1/3 max-lg:hidden" : "flex-1 max-lg:px-0"
         }`}
       >
@@ -131,11 +131,11 @@ export function PacManLayout({ chatContent, appContent, calendarContent }: PacMa
 
       {/* Right panel (quests or calendar) */}
       <div
-        className={`h-full overflow-hidden transition-all duration-300 ${
+        className={`relative z-10 h-full overflow-hidden transition-all duration-300 ${
           showPanel
             ? "w-2/3 max-lg:w-full border-l-2 border-[#2121de] max-lg:border-l-0"
             : "w-0 border-l-0"
-        }`}
+        } ${mode === "calendar" ? "bg-white" : "bg-black"}`}
       >
         <div className="w-full lg:w-[66.666vw] h-full">
           {mode === "calendar" ? calendarContent : appContent}
