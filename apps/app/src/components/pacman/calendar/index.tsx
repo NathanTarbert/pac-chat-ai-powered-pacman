@@ -61,7 +61,7 @@ function EventBlock({ event, onRemove }: EventBlockProps) {
 
   return (
     <div
-      className="absolute left-0.5 right-1 rounded-[4px] px-2 py-0.5 overflow-hidden cursor-pointer group text-white text-[11px] leading-tight z-10"
+      className="absolute left-0.5 right-1 rounded-[4px] px-2 py-0.5 overflow-hidden cursor-pointer group text-white text-[12px] leading-tight z-10"
       style={{
         top: `${topPx}px`,
         height: `${heightPx}px`,
@@ -72,7 +72,7 @@ function EventBlock({ event, onRemove }: EventBlockProps) {
     >
       <div className="font-medium truncate">{event.title}</div>
       {heightPx >= 30 && (
-        <div className="text-[10px] opacity-80 truncate">
+        <div className="text-[11px] opacity-80 truncate">
           {event.startTime} &middot; {event.durationMinutes}m
         </div>
       )}
@@ -115,10 +115,12 @@ export function GoogleCalendar() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  // Scroll to ~8AM on mount
+  // Scroll to ~8AM on mount and measure scrollbar width for header alignment
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = 8 * 60; // 8AM
+      const sw = scrollRef.current.offsetWidth - scrollRef.current.clientWidth;
+      scrollRef.current.parentElement?.style.setProperty("--scrollbar-w", `${sw}px`);
     }
   }, []);
 
@@ -153,7 +155,7 @@ export function GoogleCalendar() {
       : `${headerMonth} ${headerYear}`;
 
   return (
-    <div className="flex flex-col h-full bg-white text-[#3c4043] font-['Google_Sans',Roboto,Arial,sans-serif]">
+    <div className="flex flex-col h-full bg-white text-[#202124] font-['Google_Sans',Roboto,Arial,sans-serif]">
       {/* ─── Top toolbar ─── */}
       <div className="flex-shrink-0 flex items-center px-4 h-16 border-b border-[#dadce0]">
         {/* Hamburger */}
@@ -174,14 +176,14 @@ export function GoogleCalendar() {
               {today.getDate()}
             </text>
           </svg>
-          <span className="text-[22px] text-[#3c4043]">Calendar</span>
+          <span className="text-[24px] text-[#202124]">Calendar</span>
         </div>
 
         {/* Nav */}
         <div className="flex items-center gap-1 ml-8">
           <button
             onClick={goToday}
-            className="px-4 h-9 rounded-md border border-[#dadce0] text-sm font-medium text-[#3c4043] hover:bg-[#f1f3f4] cursor-pointer transition-colors"
+            className="px-4 h-9 rounded-md border border-[#dadce0] text-[15px] font-medium text-[#202124] hover:bg-[#f1f3f4] cursor-pointer transition-colors"
           >
             Today
           </button>
@@ -191,7 +193,7 @@ export function GoogleCalendar() {
           <button onClick={goNext} className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-[#f1f3f4] cursor-pointer">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="#5f6368"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" /></svg>
           </button>
-          <span className="text-[22px] text-[#3c4043] ml-3 whitespace-nowrap">{monthLabel}</span>
+          <span className="text-[24px] text-[#202124] ml-3 whitespace-nowrap">{monthLabel}</span>
         </div>
 
         {/* View toggle (static, week selected) */}
@@ -200,8 +202,8 @@ export function GoogleCalendar() {
             {(["Day", "Week", "Month"] as const).map((v) => (
               <button
                 key={v}
-                className={`px-3 h-9 text-sm font-medium transition-colors cursor-pointer ${
-                  v === "Week" ? "bg-[#e8f0fe] text-[#1967d2]" : "text-[#5f6368] hover:bg-[#f1f3f4]"
+                className={`px-3 h-9 text-[15px] font-medium transition-colors cursor-pointer ${
+                  v === "Week" ? "bg-[#e8f0fe] text-[#1967d2]" : "text-[#3c4043] hover:bg-[#f1f3f4]"
                 }`}
               >
                 {v}
@@ -223,19 +225,19 @@ export function GoogleCalendar() {
             />
             {/* Event count summary */}
             <div className="mt-6 px-2">
-              <div className="text-xs font-medium text-[#5f6368] uppercase tracking-wider mb-2">Upcoming</div>
+              <div className="text-[13px] font-medium text-[#3c4043] uppercase tracking-wider mb-2">Upcoming</div>
               {events.length === 0 ? (
-                <p className="text-xs text-[#80868b]">No events scheduled</p>
+                <p className="text-[13px] text-[#5f6368]">No events scheduled</p>
               ) : (
                 <div className="space-y-1.5">
                   {events
                     .sort((a, b) => `${a.date}${a.startTime}`.localeCompare(`${b.date}${b.startTime}`))
                     .slice(0, 5)
                     .map((ev) => (
-                      <div key={ev.id} className="flex items-center gap-2 text-xs">
+                      <div key={ev.id} className="flex items-center gap-2 text-[13px]">
                         <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: ev.color || getEventColor(ev.id) }} />
-                        <span className="text-[#3c4043] truncate">{ev.title}</span>
-                        <span className="text-[#80868b] flex-shrink-0 ml-auto">{ev.startTime}</span>
+                        <span className="text-[#202124] truncate">{ev.title}</span>
+                        <span className="text-[#5f6368] flex-shrink-0 ml-auto">{ev.startTime}</span>
                       </div>
                     ))}
                 </div>
@@ -246,20 +248,20 @@ export function GoogleCalendar() {
 
         {/* Main calendar grid */}
         <div className="flex-1 flex flex-col min-w-0">
-          {/* Day header row */}
-          <div className="flex-shrink-0 flex border-b border-[#dadce0]">
+          {/* Day header row — pr accounts for scrollbar width in the grid below */}
+          <div className="flex-shrink-0 flex border-b border-[#dadce0] pr-[var(--scrollbar-w,0px)]">
             {/* Gutter for time labels */}
             <div className="w-[56px] flex-shrink-0" />
             {weekDays.map((day) => {
               const isToday = isSameDay(day, today);
               return (
                 <div key={day.toISOString()} className="flex-1 text-center py-2">
-                  <div className={`text-[11px] font-medium ${isToday ? "text-[#1a73e8]" : "text-[#70757a]"}`}>
+                  <div className={`text-[12px] font-medium ${isToday ? "text-[#1a73e8]" : "text-[#5f6368]"}`}>
                     {DAY_NAMES[day.getDay()]}
                   </div>
                   <div
-                    className={`text-[26px] leading-tight mt-0.5 w-[46px] h-[46px] flex items-center justify-center mx-auto rounded-full ${
-                      isToday ? "bg-[#1a73e8] text-white" : "text-[#3c4043] hover:bg-[#f1f3f4]"
+                    className={`text-[29px] leading-tight mt-0.5 w-[46px] h-[46px] flex items-center justify-center mx-auto rounded-full ${
+                      isToday ? "bg-[#1a73e8] text-white" : "text-[#202124] hover:bg-[#f1f3f4]"
                     }`}
                   >
                     {day.getDate()}
@@ -270,14 +272,14 @@ export function GoogleCalendar() {
           </div>
 
           {/* Scrollable time grid */}
-          <div ref={scrollRef} className="flex-1 overflow-y-auto overflow-x-hidden">
+          <div ref={scrollRef} className="flex-1 overflow-y-scroll overflow-x-hidden">
             <div className="relative flex" style={{ height: `${24 * 60}px` }}>
               {/* Time labels gutter */}
               <div className="w-[56px] flex-shrink-0 relative">
                 {HOURS.map((h) => (
                   <div
                     key={h}
-                    className="absolute right-2 text-[10px] text-[#70757a] leading-none"
+                    className="absolute right-2 text-[11px] text-[#5f6368] leading-none"
                     style={{ top: `${h * 60 - 5}px` }}
                   >
                     {h > 0 ? formatHour(h) : ""}

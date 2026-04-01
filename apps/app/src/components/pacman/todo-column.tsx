@@ -57,9 +57,9 @@ export function PacManTodoColumn({
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
           <GhostSmall color={ghostColor} />
-          <h2 className="text-base font-bold tracking-widest text-[#ffff00]">{title}</h2>
+          <h2 className="text-[17px] font-bold tracking-widest text-[#ffff55]">{title}</h2>
           <span
-            className="text-[12px] font-bold tracking-wider px-2.5 py-0.5 rounded-full text-black bg-[#ffff00]"
+            className="text-[13px] font-bold tracking-wider px-2.5 py-0.5 rounded-full text-black bg-[#ffff55]"
             style={{ animation: "score-pop 0.3s ease-out" }}
           >
             {String(todos.length).padStart(2, "0")}
@@ -83,7 +83,7 @@ export function PacManTodoColumn({
       {/* Cards */}
       <div className="space-y-3">
         {todos.length === 0 ? (
-          <div className="text-center text-sm rounded-lg border-2 border-dashed p-6 min-h-[120px] flex items-center justify-center text-[#5555ff] border-[#2121de] tracking-wider">
+          <div className="text-center text-[14px] rounded-lg border-2 border-dashed p-6 min-h-[120px] flex items-center justify-center text-[#9999ff] border-[#5555ff] tracking-wider">
             {/* Power pellet in empty state */}
             <div className="flex flex-col items-center gap-2">
               <div

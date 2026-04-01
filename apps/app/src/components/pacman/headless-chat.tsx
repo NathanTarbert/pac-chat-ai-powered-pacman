@@ -99,14 +99,14 @@ function MessageBubble({ role, content }: MessageBubbleProps) {
 
       {/* Message */}
       <div className={`max-w-[75%] ${isUser ? "text-right" : ""}`}>
-        <div className={`text-[11px] font-bold tracking-widest mb-1 ${isUser ? "text-[#ffff00]" : "text-[#ff0000]"}`}>
+        <div className={`text-[12px] font-bold tracking-widest mb-1 ${isUser ? "text-[#ffff55]" : "text-[#ff6666]"}`}>
           {ghost.name}
         </div>
         <div
-          className={`relative px-5 py-3.5 rounded-lg text-base leading-relaxed ${
+          className={`relative px-5 py-3.5 rounded-lg text-[17px] leading-relaxed ${
             isUser
               ? "bg-[#ffff00] text-black rounded-tr-none"
-              : "bg-[#1a1a2e] text-[#66d4f0] border border-[#2121de] rounded-tl-none"
+              : "bg-[#1a1a2e] text-[#b0f0ff] border border-[#2121de] rounded-tl-none"
           }`}
           style={!isUser ? { animation: "maze-glow 3s ease-in-out infinite" } : undefined}
         >
@@ -205,8 +205,8 @@ export function PacManChat() {
         <div className="flex items-center gap-3 min-w-0">
           <PacManSprite size={31} />
           <div className="min-w-0">
-            <h2 className="text-[#ffff00] text-base font-bold tracking-wider truncate">PAC-CHAT</h2>
-            <div className="text-[11px] text-[#66d4f0] tracking-wider truncate">
+            <h2 className="text-[#ffff55] text-[17px] font-bold tracking-wider truncate">PAC-CHAT</h2>
+            <div className="text-[12px] text-[#b0f0ff] tracking-wider truncate">
               {agent.isRunning ? (
                 <span className="flex items-center gap-1">
                   <span className="inline-block w-2 h-2 rounded-full bg-[#ff0000] animate-pulse" />
@@ -219,8 +219,8 @@ export function PacManChat() {
           </div>
           {/* Score */}
           <div className="flex-shrink-0 border-l-2 border-[#2121de] pl-3">
-            <div className="text-[11px] text-[#ffd0c8] tracking-wider">MESSAGES</div>
-            <div className="text-[#ffff00] font-bold text-base tabular-nums">
+            <div className="text-[12px] text-[#ffebe5] tracking-wider">MESSAGES</div>
+            <div className="text-[#ffff55] font-bold text-[17px] tabular-nums">
               {String(userMessageCount).padStart(4, "0")}
             </div>
           </div>
@@ -230,7 +230,7 @@ export function PacManChat() {
       {/* Extra life toast */}
       {toast && (
         <div className="absolute top-14 left-1/2 -translate-x-1/2 z-50 px-6 py-3 bg-[#1a1a2e] border-2 border-[#ffff00] rounded-lg shadow-[0_0_20px_rgba(255,255,0,0.4)] animate-[score-pop_0.3s_ease-out]">
-          <span className="text-[#ffff00] font-bold text-base tracking-wider">{toast}</span>
+          <span className="text-[#ffff55] font-bold text-[17px] tracking-wider">{toast}</span>
         </div>
       )}
 
@@ -251,17 +251,17 @@ export function PacManChat() {
                 ))}
               </div>
             </div>
-            <div className="text-[#ffff00] font-bold text-xl tracking-wider mt-4">READY!</div>
-            <div className="text-[#b0e8ff] text-sm tracking-wider max-w-xs">
+            <div className="text-[#ffff55] font-bold text-2xl tracking-wider mt-4">READY!</div>
+            <div className="text-[#b0f0ff] text-[15px] tracking-wider max-w-xs">
               INSERT MESSAGE TO START
             </div>
             {/* Suggestion pills */}
-            <div className="flex flex-wrap gap-2 mt-4 justify-center max-w-sm">
+            <div className="flex flex-wrap gap-3 mt-4 justify-center max-w-md">
               {SUGGESTIONS.map((suggestion) => (
                 <button
                   key={suggestion}
                   onClick={() => sendMessage(suggestion)}
-                  className="px-3 py-1.5 text-[12px] rounded-full border border-[#2121de] bg-black text-[#b0e8ff] hover:bg-[#2121de] hover:text-[#ffff00] transition-colors cursor-pointer tracking-wide"
+                  className="px-4 py-2 text-[14px] rounded-full border border-[#5555ff] bg-black text-[#b0f0ff] hover:bg-[#2121de] hover:text-[#ffff55] transition-colors cursor-pointer tracking-wide"
                 >
                   {suggestion}
                 </button>
@@ -301,13 +301,13 @@ export function PacManChat() {
       <div className="flex-shrink-0 px-5 py-3.5 border-t-2 border-[#2121de] bg-[#0a0a1a]">
         {/* Collapsible suggestions */}
         {showSuggestions && visibleMessages.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mb-2 animate-[score-pop_0.2s_ease-out]">
+          <div className="flex flex-wrap gap-2 mb-2 animate-[score-pop_0.2s_ease-out]">
             {SUGGESTIONS.map((s) => (
               <button
                 key={s}
                 onClick={() => { sendMessage(s); setShowSuggestions(false); }}
                 disabled={agent.isRunning || showHITLForm}
-                className="px-2.5 py-1 text-[11px] rounded-full border border-[#2121de] text-[#66d4f0] hover:bg-[#2121de] hover:text-[#ffff00] transition-colors cursor-pointer tracking-wide disabled:opacity-30 disabled:cursor-not-allowed"
+                className="px-3.5 py-1.5 text-[13px] rounded-full border border-[#5555ff] text-[#b0f0ff] hover:bg-[#2121de] hover:text-[#ffff55] transition-colors cursor-pointer tracking-wide disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 {s}
               </button>
@@ -344,7 +344,7 @@ export function PacManChat() {
               onKeyDown={handleKeyDown}
               placeholder="WAKA WAKA..."
               disabled={agent.isRunning || showHITLForm}
-              className="w-full px-5 py-3 bg-[#1a1a2e] border-2 border-[#2121de] rounded-lg text-[#ffff00] text-base placeholder-[#b0e8ff] focus:outline-none focus:border-[#33b5e5] focus:shadow-[0_0_10px_rgba(33,33,222,0.5)] disabled:opacity-50 transition-all"
+              className="w-full px-5 py-3 bg-[#1a1a2e] border-2 border-[#2121de] rounded-lg text-[#ffff55] text-[17px] placeholder-[#5555ff] focus:outline-none focus:border-[#33b5e5] focus:shadow-[0_0_10px_rgba(33,33,222,0.5)] disabled:opacity-50 transition-all"
               aria-label="Type your message"
             />
           </div>
